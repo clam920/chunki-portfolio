@@ -75,7 +75,7 @@ export const projects: {
     github: "https://github.com/clam920/QScript",
     demo: "",
     featured: true,
-    accent: "from-blue-500 to-indigo-500",
+    accent: "from-emerald-500 to-teal-600",
   },
   {
     title: "Gigsup — AI Career Intelligence Platform",
@@ -86,7 +86,7 @@ export const projects: {
     github: "",
     demo: "",
     featured: true,
-    accent: "from-violet-500 to-purple-500",
+    accent: "from-teal-500 to-cyan-500",
   },
   {
     title: "MyLivingCity",
@@ -97,7 +97,7 @@ export const projects: {
     github: "https://github.com/MyLivingCity/my-living-city",
     demo: "",
     featured: true,
-    accent: "from-emerald-500 to-teal-500",
+    accent: "from-green-500 to-emerald-600",
   },
   {
     title: "Bin-ary",
@@ -108,7 +108,7 @@ export const projects: {
     github: "https://github.com/clam920/Binary",
     demo: "",
     featured: false,
-    accent: "from-amber-500 to-orange-500",
+    accent: "from-teal-400 to-green-500",
   },
 ];
 
