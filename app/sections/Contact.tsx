@@ -15,7 +15,7 @@ export default function Contact() {
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium mb-6 border"
             style={{ background: "var(--accent-light)", borderColor: "color-mix(in srgb, var(--accent) 25%, transparent)", color: "var(--accent-text)" }}>
             <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: "var(--accent)" }} />
-            {siteConfig.location} · {siteConfig.workPreference}
+            {siteConfig.workPreference}
           </div>
 
           <p className="leading-relaxed mb-4" style={{ color: "var(--text-body)" }}>

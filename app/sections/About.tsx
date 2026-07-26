@@ -25,7 +25,7 @@ export default function About() {
                 style={{ color: "var(--accent)" }}>
                 Get in touch
               </a>{" "}
-              and I&apos;ll send over my resume.
+              and I&apos;ll send over a tailored resume.
             </p>
           </FadeIn>
 

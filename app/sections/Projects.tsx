@@ -4,16 +4,20 @@ import { useState } from "react";
 import { projects, ProjectFilter } from "@/lib/data";
 import FadeIn from "@/app/components/FadeIn";
 
-const filters: ProjectFilter[] = ["All", "AI & ML", "Full-Stack", "Backend"];
+const filters: ProjectFilter[] = ["All", "AI & ML", "Full-Stack", "Backend", "Data Analytics"];
 
 export default function Projects() {
-  const [active, setActive] = useState<ProjectFilter>("All");
+  const [active, setActive] = useState<ProjectFilter | "Featured">("Featured");
   const [animKey, setAnimKey] = useState(0);
   const [expanded, setExpanded] = useState<string | null>(null);
 
-  const visible = projects.filter((p) => p.filters.includes(active));
+  const visible = active === "Featured"
+    ? projects.filter((p) => p.featured)
+    : projects.filter((p) => p.filters.includes(active as ProjectFilter));
 
-  function handleFilter(f: ProjectFilter) {
+  const isFeatured = active === "Featured";
+
+  function handleFilter(f: ProjectFilter | "Featured") {
     setActive(f);
     setAnimKey((k) => k + 1);
     setExpanded(null);
@@ -24,13 +28,14 @@ export default function Projects() {
       style={{ background: "var(--bg-alt)", borderTop: "1px solid var(--border-strong)" }}>
       <div className="relative z-10 max-w-5xl mx-auto">
         <FadeIn>
-          <h2 className="text-3xl font-bold mb-2" style={{ color: "var(--text-heading)" }}>Projects</h2>
+          <h2 className="text-3xl font-bold mb-2" style={{ color: "var(--text-heading)" }}>Projects & Reports</h2>
           <div className="w-12 h-1 rounded mb-8 bg-gradient-to-r from-emerald-500 to-teal-500" />
         </FadeIn>
 
+        {/* Filter tabs */}
         <FadeIn delay={100}>
           <div className="flex flex-wrap gap-2 mb-10">
-            {filters.map((f) => (
+            {(["Featured", ...filters] as (ProjectFilter | "Featured")[]).map((f) => (
               <button key={f} onClick={() => handleFilter(f)}
                 className="px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200"
                 style={active === f ? {
@@ -42,18 +47,19 @@ export default function Projects() {
                   color: "var(--text-body)",
                   border: "1px solid var(--border-strong)",
                 }}>
-                {f}
+                {f === "Featured" ? "⭐ Featured" : f}
               </button>
             ))}
           </div>
         </FadeIn>
 
-        <div key={animKey} className="grid md:grid-cols-2 gap-6 items-start">
+        {/* Cards */}
+        <div key={animKey} className="grid md:grid-cols-2 gap-6">
           {visible.map((project, i) => {
             const isOpen = expanded === project.title;
             return (
               <div key={project.title}
-                className="filter-enter group relative flex flex-col rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1 self-start"
+                className="filter-enter group relative flex flex-col rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1"
                 style={{
                   background: "var(--bg-card)",
                   border: "1px solid var(--border-strong)",
@@ -67,18 +73,18 @@ export default function Projects() {
                     <h3 className="font-bold text-lg leading-snug pr-4" style={{ color: "var(--text-heading)" }}>
                       {project.title}
                     </h3>
-                    <div className="flex flex-wrap gap-2 shrink-0">
+                    <div className="flex gap-3 shrink-0">
                       {project.github && (
                         <a href={project.github} target="_blank" rel="noopener noreferrer"
-                          className="rounded-full px-3 py-1 text-xs font-semibold transition-colors hover:opacity-80"
-                          style={{ background: "var(--accent-light)", color: "var(--accent-text)", border: "1px solid var(--border)" }}>
-                          {project.linkLabel} ↗
+                          className="text-sm font-medium transition-colors hover:opacity-80"
+                          style={{ color: "var(--accent)" }}>
+                          GitHub ↗
                         </a>
                       )}
                       {project.demo && (
                         <a href={project.demo} target="_blank" rel="noopener noreferrer"
-                          className="rounded-full px-3 py-1 text-xs font-semibold transition-colors hover:opacity-80"
-                          style={{ background: "var(--accent-light)", color: "var(--accent-text)", border: "1px solid var(--border)" }}>
+                          className="text-sm font-medium transition-colors hover:opacity-80"
+                          style={{ color: "var(--accent)" }}>
                           {project.demoLabel} ↗
                         </a>
                       )}
@@ -115,7 +121,6 @@ export default function Projects() {
                       ))}
                     </div>
                     <button onClick={() => setExpanded(isOpen ? null : project.title)}
-                      aria-expanded={isOpen}
                       className="text-xs font-semibold transition-colors" style={{ color: "var(--accent)" }}>
                       {isOpen ? "▲ Show less" : "▼ See details"}
                     </button>
@@ -126,8 +131,23 @@ export default function Projects() {
           })}
         </div>
 
+        {/* View all link — only shown in Featured mode */}
+        {isFeatured && (
+          <FadeIn delay={200}>
+            <div className="mt-10 text-center">
+              <button onClick={() => handleFilter("All")}
+                className="inline-flex items-center gap-2 text-sm font-semibold underline underline-offset-4 transition-colors hover:opacity-70"
+                style={{ color: "var(--accent)" }}>
+                View all {projects.length} projects & reports ↓
+              </button>
+            </div>
+          </FadeIn>
+        )}
+
         {visible.length === 0 && (
-          <p className="text-center py-16" style={{ color: "var(--text-muted)" }}>No projects in this category yet.</p>
+          <p className="text-center py-16" style={{ color: "var(--text-muted)" }}>
+            No items in this category yet.
+          </p>
         )}
       </div>
     </section>
