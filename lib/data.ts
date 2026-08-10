@@ -235,6 +235,21 @@ export const projects: {
     accent: "from-cyan-600 to-teal-600",
     isReport: true,
   },
+  {
+    title: "Payroll Anomaly Dashboard",
+    description: "A backend API for payroll processing that automatically flags anomalous timesheets — excessive hours, duplicate entries, unusually high pay — with an approval workflow requiring a documented override reason.",
+    what: "ASP.NET Core 8 Web API built with Clean Architecture and CQRS (MediatR), where a pluggable rule-based domain service detects timesheet anomalies on every submission and a review workflow forces a human-reviewed override before a flagged item can be approved.",
+    interesting: "Designed the override rule to live in the Application layer rather than a single entity, since it needs cross-aggregate knowledge of both Timesheet and Anomaly — a deliberate DDD boundary decision. Layered FluentValidation (request-boundary checks) on top of the domain entities' own constructor guard clauses (last-line-of-defense invariants) rather than picking one over the other.",
+    result: "Shipped a fully tested (42 unit tests, xUnit + Moq), Dockerized API with centralized exception handling, structured Serilog logging, and CI running build + tests on every push via GitHub Actions.",
+    tags: ["C#", ".NET 8", "ASP.NET Core", "MediatR", "CQRS", "EF Core", "FluentValidation", "Serilog", "Docker", "xUnit", "Moq"],
+    filters: ["All", "Backend"],
+    github: "https://github.com/clam920/PayrollAnomalyDashboard",
+    demo: "",
+    linkLabel: "GitHub",
+    demoLabel: "Demo",
+    featured: true,
+    accent: "from-cyan-500 to-teal-600",
+  },
 ];
 
 export const experience: Array<{

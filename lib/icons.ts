@@ -35,6 +35,7 @@ const ICON_MAP: Partial<Record<string, keyof typeof Si>> = {
   svelte:          "SiSvelte",
   tailwind:        "SiTailwindcss",
   "tailwind css":  "SiTailwindcss",
+  dotNet:          "SiDotnet",
   // AI & ML
   pytorch:         "SiPytorch",
   tensorflow:      "SiTensorflow",
